@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from prediction.views import dc, things
+from prediction.views import dc
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
