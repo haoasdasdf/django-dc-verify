@@ -44,33 +44,33 @@ def dc(request):
             form = ImageUploadForm()
             return render(request, 'dc.html', {'form': form})
         
-def things(request):
-    if request.method == 'GET':
-        # GETリクエストによるアクセス時の処理を記述
-        form = ImageUploadForm()
-        return render(request, 'things.html', {'form': form})
-    if request.method == 'POST':
-        # POSTリクエストによるアクセス時の処理を記述
-        form = ImageUploadForm(request.POST, request.FILES)
-        if form.is_valid():
-            img_file = form.cleaned_data['image']
-            # 画像ファイル（img_file）の前処理を追加
-            img_file = BytesIO(img_file.read())
-            img = load_img(img_file, target_size=(224, 224))
-            img_array = img_to_array(img)
-            img_array = img_array.reshape((1, 224, 224, 3))
-            img_array = preprocess_input(img_array)
+# def things(request):
+#     if request.method == 'GET':
+#         # GETリクエストによるアクセス時の処理を記述
+#         form = ImageUploadForm()
+#         return render(request, 'things.html', {'form': form})
+#     if request.method == 'POST':
+#         # POSTリクエストによるアクセス時の処理を記述
+#         form = ImageUploadForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             img_file = form.cleaned_data['image']
+#             # 画像ファイル（img_file）の前処理を追加
+#             img_file = BytesIO(img_file.read())
+#             img = load_img(img_file, target_size=(224, 224))
+#             img_array = img_to_array(img)
+#             img_array = img_array.reshape((1, 224, 224, 3))
+#             img_array = preprocess_input(img_array)
 
-            # 判定結果のロジックを追加
+#             # 判定結果のロジックを追加
 
-            model_path = os.path.join(settings.BASE_DIR, 'prediction', 'models', 'vgg16.h5')
-            model = load_model(model_path)
-            result = model.predict(img_array)
-            prediction = decode_predictions(result, top=5)[0]
-            print(prediction)
+#             model_path = os.path.join(settings.BASE_DIR, 'prediction', 'models', 'vgg16.h5')
+#             model = load_model(model_path)
+#             result = model.predict(img_array)
+#             prediction = decode_predictions(result, top=5)[0]
+#             print(prediction)
             
-            img_data = request.POST.get('img_data')
-            return render(request, 'things.html', {'form': form, 'prediction': prediction, 'img_data': img_data})
-        else:
-            form = ImageUploadForm()
-            return render(request, 'things.html', {'form': form})
+#             img_data = request.POST.get('img_data')
+#             return render(request, 'things.html', {'form': form, 'prediction': prediction, 'img_data': img_data})
+#         else:
+#             form = ImageUploadForm()
+#             return render(request, 'things.html', {'form': form})

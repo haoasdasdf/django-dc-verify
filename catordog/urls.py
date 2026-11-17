@@ -22,6 +22,6 @@ urlpatterns = [
     # path('admin/', admin.site.urls),
     # path('', '', name='top')
     path('', dc, name='dc'),
-    path('things', things, name='things'),
+    # path('things', things, name='things'),
     
 ]
